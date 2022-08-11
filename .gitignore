@@ -1,5 +1,7 @@
 #cubeide
 .metadata
 .settings
-.launch
+*.launch
+Debug
+
 
