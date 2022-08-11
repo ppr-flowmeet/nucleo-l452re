@@ -115,7 +115,7 @@ int main(void)
 			switch (led_user_delay_sel)
 			{
 			case 1:
-				led_user_delay = 2000;
+				led_user_delay = 1500;
 				led_user_delay_sel = 2;
 				break;
 			case 2:
