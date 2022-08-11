@@ -1,0 +1,6 @@
+../Core/Src/lcd2004a.c:24:6:lcd_send_cmd	32	static
+../Core/Src/lcd2004a.c:39:6:lcd_send_data	32	static
+../Core/Src/lcd2004a.c:53:6:lcd_clear	16	static
+../Core/Src/lcd2004a.c:65:6:lcd_move_cursor	16	static
+../Core/Src/lcd2004a.c:92:6:lcd_2004_init	8	static
+../Core/Src/lcd2004a.c:120:6:lcd_send_string	16	static
