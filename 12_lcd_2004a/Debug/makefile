@@ -60,8 +60,8 @@ all: main-build
 main-build: 12_lcd_2004a.elf secondary-outputs
 
 # Tool invocations
-12_lcd_2004a.elf 12_lcd_2004a.map: $(OBJS) $(USER_OBJS) D:\githubs\nucleo-l452re\12_lcd_2004a\STM32L452RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "12_lcd_2004a.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\githubs\nucleo-l452re\12_lcd_2004a\STM32L452RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="12_lcd_2004a.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+12_lcd_2004a.elf 12_lcd_2004a.map: $(OBJS) $(USER_OBJS) D:\github\nucleo-l452re\12_lcd_2004a\STM32L452RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "12_lcd_2004a.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\github\nucleo-l452re\12_lcd_2004a\STM32L452RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="12_lcd_2004a.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
