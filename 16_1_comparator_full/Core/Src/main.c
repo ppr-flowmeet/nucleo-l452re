@@ -295,13 +295,20 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LD4_GPIO_Port, LD4_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, COMP_GPIO_OUT_AUX_Pin|LD4_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : COMP_GPIO_OUT_AUX_Pin */
+  GPIO_InitStruct.Pin = COMP_GPIO_OUT_AUX_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(COMP_GPIO_OUT_AUX_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : LD4_Pin */
   GPIO_InitStruct.Pin = LD4_Pin;
@@ -315,11 +322,16 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_COMP_TriggerCallback(COMP_HandleTypeDef* hcomp){
 	interruptCount++;
+	HAL_GPIO_TogglePin(COMP_GPIO_OUT_AUX_GPIO_Port, COMP_GPIO_OUT_AUX_Pin);
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim){
 	itoa(interruptCount, bufferTx, 10);
 	strcat(bufferTx, " interrupciones del COMP por segundo\n");
+	HAL_UART_Transmit(&huart2, (uint8_t*)bufferTx, (uint16_t)strlen(bufferTx), HAL_MAX_DELAY);
+
+	itoa(hcomp1.ErrorCode, bufferTx, 10);
+	strcat(bufferTx, " <-- codigo de error\n\n");
 	HAL_UART_Transmit(&huart2, (uint8_t*)bufferTx, (uint16_t)strlen(bufferTx), HAL_MAX_DELAY);
 	interruptCount = 0;
 }
@@ -336,6 +348,11 @@ void Error_Handler(void)
   __disable_irq();
   while (1)
   {
+	  /* Toggle LED2 */
+	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+
+	  /* Add a delay */
+	  HAL_Delay(100);
   }
   /* USER CODE END Error_Handler_Debug */
 }
